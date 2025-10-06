@@ -58,11 +58,28 @@ exports.listTask = (filePath) => {
 };
 
 exports.markTask = (filePath, taskID) => {
-  tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  try {
+    tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-  for (const task of tasks) {
-    if (task.id === taskID) {
-      task.status = "done";
+    let taskFound = false;
+
+    for (const task of tasks) {
+      if (task.id === taskID) {
+        taskFound = true;
+        task.status = "done";
+        console.log(`Task: ${task.title}`);
+        console.log(`Task with ID ${taskID} marked as completed`);
+
+        break;
+      }
     }
+
+    if (taskFound) {
+      fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2));
+    } else {
+      console.log(`Task with ID ${taskID} not found`);
+    }
+  } catch (err) {
+    console.log(`Error: ${err.msg}`);
   }
 };
