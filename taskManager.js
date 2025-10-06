@@ -44,8 +44,12 @@ exports.addTask = (filePath, title) => {
   }
 };
 
-// exports.listTask = (filePath) => {
-//   tasks = JSON.parse(fs.readFile(filePath, "utf-8"));
+exports.listTask = (filePath) => {
+  tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-//   for
-// };
+  for (const task of tasks) {
+    console.log(
+      `${task.id}. ${task.status === "pending" ? "[]" : "[x]"} ${task.title}`
+    );
+  }
+};
