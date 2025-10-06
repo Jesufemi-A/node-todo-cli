@@ -43,7 +43,7 @@ exports.addTask = (filePath, title) => {
     console.log(`Task: ${title}`);
     console.log("Task added successfully!");
   } catch (err) {
-    console.log("Can not add file: " + err.msg);
+    console.log("Can not add file: " + err.message);
   }
 };
 
