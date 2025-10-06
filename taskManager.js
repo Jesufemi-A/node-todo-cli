@@ -89,9 +89,7 @@ exports.deleteTask = (filePath, taskID) => {
 
   let taskFound = false;
 
-  let currentTasks = tasks.filter((task) => {
-    task.id !== taskID;
-  });
+  let currentTasks = tasks.filter((task) => task.id !== taskID);
 
   if (currentTasks.length < tasks.length) {
     taskFound = true;
