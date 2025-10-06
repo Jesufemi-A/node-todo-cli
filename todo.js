@@ -16,3 +16,7 @@ if (command === "list") {
 if (command === "mark") {
   taskManager.markTask(filePath, parseInt(process.argv[3]));
 }
+
+if (command === 'delete') {
+  taskManager.deleteTask(filePath, parseInt(process.argv[3]) )
+}
