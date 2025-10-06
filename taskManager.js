@@ -18,6 +18,7 @@ exports.addTask = (filePath, title) => {
     if (!fs.existsSync(filePath)) {
       let task = [
         {
+          id: 1,
           title: title,
           status: "pending",
         },
@@ -28,7 +29,9 @@ exports.addTask = (filePath, title) => {
       // If tasks.json already existed and app isn't running for the first time
     } else {
       let tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      taskID = getMaxID(tasks) + 1;
       const task = {
+        id: taskID,
         title: title,
         status: "pending",
       };
@@ -51,5 +54,15 @@ exports.listTask = (filePath) => {
     console.log(
       `${task.id}. ${task.status === "pending" ? "[]" : "[x]"} ${task.title}`
     );
+  }
+};
+
+exports.markTask = (filePath, taskID) => {
+  tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+  for (const task of tasks) {
+    if (task.id === taskID) {
+      task.status = "done";
+    }
   }
 };
