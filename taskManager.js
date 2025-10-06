@@ -1,5 +1,17 @@
 const fs = require("fs");
 
+const getMaxID = (tasksObj) => {
+  let maxID = 0;
+
+  for (const taskObj of tasksObj) {
+    if (taskObj.id > maxID) {
+      maxID = taskObj.id;
+    }
+  }
+
+  return maxID;
+};
+
 exports.addTask = (filePath, title) => {
   // If tasks.json file doesn't exist and app is running for the first time
   try {
@@ -31,3 +43,9 @@ exports.addTask = (filePath, title) => {
     console.log("Can not add file: " + err.msg);
   }
 };
+
+// exports.listTask = (filePath) => {
+//   tasks = JSON.parse(fs.readFile(filePath, "utf-8"));
+
+//   for
+// };
