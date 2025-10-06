@@ -10,21 +10,24 @@ exports.addTask = (filePath, title) => {
           status: "pending",
         },
       ];
-      task = JSON.stringify(task);
-      fs.writeFileSync("./tasks.json", task);
+      task = JSON.stringify(task, null, 2);
+      fs.writeFileSync(filePath, task);
 
       // If tasks.json already existed and app isn't running for the first time
     } else {
       let tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-      const task = JSON.stringify({
+      const task = {
         title: title,
         status: "pending",
-      });
+      };
       tasks.push(task);
+      tasks = JSON.stringify(tasks, null, 2);
       fs.writeFileSync(filePath, tasks);
     }
+
+    console.log(`Task: ${title}`);
     console.log("Task added successfully");
   } catch (err) {
-    console.log("Can not add file");
+    console.log("Can not add file: " + err.msg);
   }
 };
