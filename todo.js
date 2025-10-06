@@ -5,7 +5,10 @@ filePath = "./tasks.json";
 let command = process.argv[2];
 let title = process.argv[3];
 
-
 if (command === "add") {
   taskManager.addTask(filePath, title);
+}
+
+if (command === "list") {
+  taskManager.listTask(filePath);
 }
