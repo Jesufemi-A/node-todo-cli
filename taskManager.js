@@ -41,7 +41,7 @@ exports.addTask = (filePath, title) => {
     }
 
     console.log(`Task: ${title}`);
-    console.log("Task added successfully");
+    console.log("Task added successfully!");
   } catch (err) {
     console.log("Can not add file: " + err.msg);
   }
@@ -80,24 +80,28 @@ exports.markTask = (filePath, taskID) => {
       console.log(`Task with ID ${taskID} not found`);
     }
   } catch (err) {
-    console.log(`Error: ${err.msg}`);
+    console.log(`Error: ${err.message}`);
   }
 };
 
 exports.deleteTask = (filePath, taskID) => {
-  tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  try {
+    const tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-  let taskFound = false;
+    let taskFound = false;
 
-  let currentTasks = tasks.filter((task) => task.id !== taskID);
+    let currentTasks = tasks.filter((task) => Number(task.id !== taskID));
 
-  if (currentTasks.length < tasks.length) {
-    taskFound = true;
-  }
+    if (currentTasks.length < tasks.length) {
+      taskFound = true;
+    }
 
-  if (taskFound) {
-    fs.writeFileSync(filePath, JSON.stringify(currentTasks, null, 2));
-  } else {
-    console.log(`Task with ID ${taskID} not found`);
+    if (taskFound) {
+      fs.writeFileSync(filePath, JSON.stringify(currentTasks, null, 2));
+    } else {
+      console.log(`Task with ID ${taskID} not found`);
+    }
+  } catch (err) {
+    console.log(`Error: ` + err.message);
   }
 };
