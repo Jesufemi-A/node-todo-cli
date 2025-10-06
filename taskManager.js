@@ -83,3 +83,23 @@ exports.markTask = (filePath, taskID) => {
     console.log(`Error: ${err.msg}`);
   }
 };
+
+exports.deleteTask = (filePath, taskID) => {
+  tasks = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+  let taskFound = false;
+
+  let currentTasks = tasks.filter((task) => {
+    task.id !== taskID;
+  });
+
+  if (currentTasks.length < tasks.length) {
+    taskFound = true;
+  }
+
+  if (taskFound) {
+    fs.writeFileSync(filePath, JSON.stringify(currentTasks, null, 2));
+  } else {
+    console.log(`Task with ID ${taskID} not found`);
+  }
+};
